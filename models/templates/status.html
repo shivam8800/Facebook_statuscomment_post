@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <center><h1>All Status</h1></center>
+    <div class="row">
+        {% for status in all_status %}
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h3><a href="{% url 'status_detail' pk=status.pk %} " style="color:blueviolet">{{ status.status_text }}</a></h3>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

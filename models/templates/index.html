@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+	<center><h2>Status and their Comments</h2></center>
+	<div class="row">
+		<div class="treasure panel panel-default hover">
+			{% for state in statusComments %}
+				<div class="panel-heading"><h2>{{ state.status }}</h2></a></div>
+				{% for comment in state.comments %}
+					<ul>
+						<div class="panel-body"><li>{{ comment }}</li></div>
+					</ul>
+				{% endfor %}
+			{% endfor %}
+		</div>
+	</div>
+
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <div class="row">
+        <div class="treasure panel panel-default hover">
+            <div class="panel-heading"><h2>{{ status.status_text }}</h2></div>
+            <input type="hidden" value="{{ status.id }}" id="state_id">
+            {% for comment in comments %}
+                <ul>
+                    <div class="panel-body" style="padding: 5px;">
+                        <li>{{ comment.comments_text }}</li>
+                        <a href="" class="reply" data-id="{{ comment.id }}" ><p style="margin-left: 50px;">Reply</p></a>
+                        <div>
+                            <!-- <input type="hidden" value="{{ comment.nested_comments }}" id="list{{ comment.id }}"> -->
+                            <ul class="{{ comment.id }}">
+                            {% for nested_comment in comment.nested_comments %}
+                                <li>{{ nested_comment.nested_comment_text }}</li>
+                            {% endfor %}
+                            </ul>
+                        </div>
+                        <form method="POST" action="/postnestedcomment/" id="form{{ comment.id }}">
+                            {% csrf_token %}
+
+                             <div id="nestedcomment{{comment.id}}"></div>
+                        </form>
+                    </div>
+                </ul>
+            {% endfor %}
+            <form method="POST" class="post-form">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="save btn btn-default submitbutton" style="margin-left: 30px; margin-bottom: 10px; width: 100px;">save</button>
+            </form>
+		</div>
+    </div>
+{% endblock %}
